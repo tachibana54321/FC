@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jquery</title>
+	<style>
+		.ajax_loader {background: url("spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
+	</style>
+	<script src="jquery-1.11.3.js"></script>
+	<script src="ajaxLoader.js"></script>
+	<script type="text/JavaScript">
+	
+	$(document).ready(function(){ 
+		var block;
+		//block = new ajaxLoader(".box");
+		$.get("0824.php?neuron=5HT1A-F-700020.txt",function(data){ //初始將a.html include div#iframe
+		$("#iframe").html(data);
+		}); 
+		//var removeBlock = setTimeout("block.remove()",2000); 
+			$(function(){
+				$('#neuron').change( function() {
+					
+					block = new ajaxLoader(".box");
+					var setneuron = $('#neuron').val();
+					$.get("0824.php?neuron="+setneuron,function(data){
+						$("#iframe").html(data); 
+					});
+					var removeBlock = setTimeout("block.remove()",2000); 
+					//block.remove();
+					return false
+				})
+			})
+		});
+		
+
+	</script>
+</head>
+<body>
+
+1231321321
+1231321321
+12313213211231321321
+1231321321
+1231321321
+1231321321
+1231321321123132132112313213211231321321
+1231321321
+1231321321
+12313213211231321321123132132112313213211231321321
+123132132112313213211231321321
+1231321321
+
+<form>
+	<select name="neuron" id="neuron">
+		<option value="5HT1A-F-700020.txt">5HT1A-F-700020</option>
+		<option value="5-HT1B-F-300000.txt">5-HT1B-F-300000</option>
+		<option value="104198-F-000000.txt">104198-F-000000</option>
+		<option value="Cha-F-000009.txt">Cha-F-000009</option>
+		<option value="E0585-F-000000.txt">E0585-F-000000</option>
+		<option value="E0585-F-500010.txt">E0585-F-500010</option>
+		<option value="fru-F-000000.txt">fru-F-000000</option>
+		<option value="G0239-F-000008.txt">G0239-F-000008</option>
+		<option value="Gad1-F-000000.txt">Gad1-F-000000</option>
+		<option value="Gad1-F-900270.txt">Gad1-F-900270</option>
+		<option value="GH146-F-300000.txt">GH146-F-300000</option>
+		<option value="GH298-F-100000.txt">GH298-F-100000</option>
+	</select>
+</form>
+<div id="iframe" class="box">
+</div>
+<div class="first"></div>
+</body>
+</html>

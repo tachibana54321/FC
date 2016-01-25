@@ -1,0 +1,3 @@
+			<td><input type="checkbox" id="nodirection" onclick="clearDirection();" ><label>nodirection</label></td>
+			<td><input type="checkbox" id="upStream" onclick="clearNodirection();" ><label>upStream</label></td>
+			<td><input type="checkbox" id="downStream" onclick="clearNodirection();" ><label>downStream</label></td>
