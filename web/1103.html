@@ -89,8 +89,6 @@
 		function checkAll() {
 			var el = neuronselect.getElementsByTagName('input');
 			var len = el.length;
-			var checkboxall = document.getElementById('netwrok_all');
-			checkboxall.checked = false;
 			for(var i=0; i<len; i++) {
 				if((el[i].type=="checkbox") && (el[i].id=="local")) {
 					el[i].checked = true;
@@ -123,7 +121,7 @@
 			checkboxNoDirection.checked = true;
 		}
 		function clearAll() {
-			var checkboxall = document.getElementById('netwrok_all');
+			var checkboxall = document.getElementById('network_all');
 			var checkboxgobal = document.getElementById('network_gobal');
 			checkboxall.checked = false;
 			checkboxgobal.checked = false;

@@ -121,7 +121,7 @@
 			checkboxNoDirection.checked = true;
 		}
 		function clearAll() {
-			var checkboxall = document.getElementById('netwrok_all');
+			var checkboxall = document.getElementById('network_all');
 			var checkboxgobal = document.getElementById('network_gobal');
 			checkboxall.checked = false;
 			checkboxgobal.checked = false;
@@ -206,10 +206,10 @@
 	<input type="checkbox" value="57" name="select_zone[]" id="local" onclick="clearAll();"><label>57</label>
 	<input type="checkbox" value="58" name="select_zone[]" id="local" onclick="clearAll();"><label>58</label>
 	<input type="checkbox" value="60" name="select_zone[]" id="network_all" onclick="clearZone();"><label>ALL</label>
-	<input type="checkbox" id="network_gobal" onclick="clearLocal();" ><label>Gobal</label><br>
-	<input type="checkbox" id="downStream" onclick="clearNodirection();"><label>downStream</label>
-	<input type="checkbox" id="upStream" onclick="clearNodirection();"><label>UpStream</label>	
-	<input type="checkbox" id="nodirection" onclick="clearDirection();"><label>nodirection</label>	
+	<input type="checkbox" id="network_gobal" onclick="clearLocal();" ><label>Golbal</label><br>
+	<input type="checkbox" id="downStream" onclick="clearNodirection();"><label>Down Stream</label>
+	<input type="checkbox" id="upStream" onclick="clearNodirection();"><label>Up Stream</label>	
+	<input type="checkbox" id="nodirection" onclick="clearDirection();"><label>No Direction</label>	
 	<input type="button" onclick="change();" value="submit">
 </form>
 	<div id="iframe" class="box">
