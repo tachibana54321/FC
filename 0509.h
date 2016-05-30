@@ -1,4 +1,4 @@
-ï»¿void setArray(char neuro_array[22835][20]) {
+void setArray(char neuro_array[22835][20]) {
     FILE *neuro_list;
     char c;
     int buffer_index;
@@ -26,7 +26,7 @@ struct neuro {
     int positionPZ;
     int positionNZ;
     int none_zero;
-    float range; //(PX+NX)*(PY+NY)*(PZ*NZ) é0è€…+1 
+    float range; //(PX+NX)*(PY+NY)*(PZ*NZ) ¹L0ªÌ+1 
     float area[59];
 	};
 	
@@ -38,7 +38,7 @@ struct RDATA {
     int positionPZ;
     int positionNZ;
     int none_zero;
-    float range; //(PX+NX)*(PY+NY)*(PZ*NZ) é0è€…+1 
+    float range; //(PX+NX)*(PY+NY)*(PZ*NZ) ¹L0ªÌ+1 
     float area[59];
     };	
     
@@ -137,8 +137,11 @@ void caluate(neuro *neuro_data, RDATA *R_data, double result[60]) {
              result[i] = (R_data[0].area[i]/(neuro_data[0].area[i]+neuro_data[1].area[i]-R_data[0].area[i]));
              
         }
-	if(neuro_data[0].range+neuro_data[1].range-R_data[0].range == 0) result[59] = 0;
-	result[59] = (R_data[0].range/(neuro_data[0].range+neuro_data[1].range-R_data[0].range));
+	if(neuro_data[0].none_zero+neuro_data[1].none_zero-R_data[0].none_zero == 0) result[59] = 0;
+	else result[59] = (R_data[0].none_zero/(neuro_data[0].none_zero+neuro_data[1].none_zero-R_data[0].none_zero));
+	// 2016/3/2¸É¤Welse¡A¦b¦¹¤§«e·íneuro_data[0].none_zero+neuro_data[1].none_zero-R_data[0].none_zero == 0®É
+	// result[59]·|µ¥©ó R_data[0].none_zero 0
+	// 2016/3/4 ­ì¨Ï¥Îrangeºâgobal­È §ï¬°¨Ï¥Înone_zeroºâ
     }
 }
     

@@ -33,7 +33,7 @@ int main() {
     double area_result[60];
    	for(int ii=0; ii<60; ii++) area_result[ii] = -1;
 	for(int i=0; i<60; i++) {
-		sprintf(file_name,"I:\\new60table\\outtable%d.%d.txt",i,sequence);
+		sprintf(file_name,"H:\\new60table\\outtable%d.%d.txt",i,sequence);
 		table[i] = fopen(file_name,"w");
 		}
 	sprintf(file_name,"log%d.txt",sequence);	

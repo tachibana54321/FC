@@ -42,9 +42,9 @@ int main() {
     for(int f=start; f<=end; f++) {
         for(int i=0; i<103; i++) range_counter[i] = 0;
         for(int i=1; i<=n; i++) array[i] = -2;
-        sprintf(file_name,"W:\\n2n0_matrix\\result_matrix%d.txt",f);
+        sprintf(file_name,"H:\\n2n0_matrixNEW\\result_matrix%d.txt",f);
         outtable = fopen(file_name,"w");
-        sprintf(file_name,"W:\\n2n0_matrix\\range_counter%d.txt",f);
+        sprintf(file_name,"H:\\n2n0_matrixNEW\\range_counter%d.txt",f);
         rangetable = fopen(file_name,"w");
         counter = 0;
         printf("array ok\n");

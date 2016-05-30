@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>V2V</title>
+	<style>
+		.box{position:relative;width:1000px;height:1000px;}
+		.ajax_loader {background: url("spinner_squares_circle.gif") no-repeat center center transparent;width:100%;height:100%;}
+	</style>
+
+	<script src="jquery-1.11.3.js"></script>
+	<script src="ajaxLoader.js"></script>
+	<script type="text/JavaScript">
+	
+	
+		$(document).ready(function(){ 
+			var block;
+			block = new ajaxLoader(".box");
+			var defaultAll = document.getElementById('network_all');
+			var checkboxNoDirection = document.getElementById('nodirection');
+			checkboxNoDirection.checked = true;
+			defaultAll.checked = true;
+			$.get("1201v2v.php?neuron=5HT1A-F-700020.txt&select_zone[]=60&upStream=0&downStream=0",function(data){ //初始將a.html include div#iframe
+			$("#iframe").html(data);
+			}); 
+			var removeBlock = setTimeout("block.remove()",2000); 
+		});	
+		function change() {
+			var block;
+			block = new ajaxLoader(".box");
+			var MyNeuronName = document.getElementById('neuron');
+			var el = neuronselect.getElementsByTagName('input');
+			var len = el.length;
+			var Allzone = document.getElementById('network_all');
+			var select_all = false;
+			//alert(MyNeuronName.value);
+			var select_network = document.getElementById('network_gobal');
+			var checkboxUpStream = document.getElementById('upStream');
+			var checkboxDownStream = document.getElementById('downStream');
+			var checkboxNoDirection = document.getElementById('nodirection');
+			var user_select = MyNeuronName.value;
+			var direct = 0;
+			if(select_network.checked == true) {
+				user_select += "&select_zone[]=59";
+			}
+			else {
+				do {
+					if( Allzone.checked == true ) {
+						select_all = true;
+						user_select += "&select_zone[]=60";
+					}
+					if(select_all) break;
+					for(var i=0; i<len; i++) {
+						if( el[i].id=="local" && el[i].checked == true ) {
+							user_select += "&select_zone[]=";
+							user_select += el[i].value;
+						}
+					}
+				} while(false);
+			}
+			//alert(user_select);
+			if( checkboxUpStream.checked == true ) direct++;
+			if( checkboxDownStream.checked == true ) direct += 2;
+			if( checkboxNoDirection.checked == true ) direct = 0;
+			switch(direct) {
+			case 0:
+				user_select += "&upStream=0&downStream=0";
+				break;
+			case 1:
+				user_select += "&upStream=1&downStream=0";
+				break;
+			case 2:
+				user_select += "&upStream=0&downStream=1";
+				break;
+			case 3:
+				user_select += "&upStream=1&downStream=1";
+				break;
+			default:
+				alert("ERROR");
+			}
+			//} while(false);
+			//alert(user_select);
+			$.get("1201v2v.php?neuron="+user_select,function(data){
+				$("#iframe").html(data);
+				}); 
+			var removeBlock = setTimeout("block.remove()",2000); 
+			
+		};
+
+		function checkAll() {
+			var el = neuronselect.getElementsByTagName('input');
+			var len = el.length;
+			for(var i=0; i<len; i++) {
+				if((el[i].type=="checkbox") && (el[i].id=="local")) {
+					el[i].checked = true;
+				}
+			}
+		}
+		function clearZone() {
+			var el = neuronselect.getElementsByTagName('input');
+			var len = el.length;
+			for(var i=0; i<len; i++) {
+				if(el[i].id=="local" || el[i].id=="network_gobal") {
+					el[i].checked = false;
+				}
+			}
+		};
+		function clearLocal() {
+			var checkboxUpStream = document.getElementById('upStream');
+			var checkboxDownStream = document.getElementById('downStream');
+			var checkboxNoDirection = document.getElementById('nodirection');
+			var el = neuronselect.getElementsByTagName('input');
+			var len = el.length;
+			for(var i=0; i<len; i++) {
+				//if((el[i].type=="checkbox") && (el[i].id=="local")) {
+				if(el[i].id=="local" || el[i].id=="network_all") {
+					el[i].checked = false;
+				}
+			}
+			checkboxUpStream.checked = false;
+			checkboxDownStream.checked = false;
+			checkboxNoDirection.checked = true;
+		}
+		function clearAll() {
+			var checkboxall = document.getElementById('network_all');
+			var checkboxgobal = document.getElementById('network_gobal');
+			checkboxall.checked = false;
+			checkboxgobal.checked = false;
+		}
+		function clearDirection() {
+			var checkboxUpStream = document.getElementById('upStream');
+			var checkboxdownStream = document.getElementById('downStream');
+			checkboxUpStream.checked = false;
+			checkboxdownStream.checked = false;
+		};
+		function clearNodirection() {
+			var checkboxNoDirection = document.getElementById('nodirection');
+			checkboxNoDirection.checked = false;
+		};
+	</script>
+</head>
+<body>
+<form name="neuronselect">
+	<select name="neuron" id="neuron">
+		<option value="5HT1A-F-700020.txt">5HT1A-F-700020</option>
+		<option value="5-HT1B-F-300000.txt">5-HT1B-F-300000</option>
+		<option value="104198-F-000000.txt">104198-F-000000</option>
+		<option value="E0585-F-000000.txt">E0585-F-000000</option>
+		<option value="E0585-F-500010.txt">E0585-F-500010</option>
+		<option value="fru-F-000000.txt">fru-F-000000</option>
+		<option value="G0239-F-000008.txt">G0239-F-000008</option>
+		<option value="Gad1-F-000000.txt">Gad1-F-000000</option>
+		<option value="Gad1-F-900270.txt">Gad1-F-900270</option>
+		<option value="GH146-F-300000.txt">GH146-F-300000</option>
+		<option value="GH298-F-100000.txt">GH298-F-100000</option>
+		<option value="Cha-F-100260.txt">Cha-F-100260</option>
+		<option value="Cha-F-000009.txt">Cha-F-000009</option>
+		<option value="VGlut-F-000334.txt">VGlut-F-000334</option>
+		<option value="G0239-F-000011.txt">G0239-F-000011</option>
+	</select>
+	<br>
+	<input type="checkbox" value="1" name="select_zone[]" id="local" onclick="clearAll();"><label>1</label>
+	<input type="checkbox" value="2" name="select_zone[]" id="local" onclick="clearAll();"><label>2</label>
+	<input type="checkbox" value="3" name="select_zone[]" id="local" onclick="clearAll();"><label>3</label>
+	<input type="checkbox" value="4" name="select_zone[]" id="local" onclick="clearAll();"><label>4</label>
+	<input type="checkbox" value="5" name="select_zone[]" id="local" onclick="clearAll();"><label>5</label>
+	<input type="checkbox" value="6" name="select_zone[]" id="local" onclick="clearAll();"><label>6</label>
+	<input type="checkbox" value="7" name="select_zone[]" id="local" onclick="clearAll();"><label>7</label>
+	<input type="checkbox" value="8" name="select_zone[]" id="local" onclick="clearAll();"><label>8</label>
+	<input type="checkbox" value="9" name="select_zone[]" id="local" onclick="clearAll();"><label>9</label>
+	<input type="checkbox" value="10" name="select_zone[]" id="local" onclick="clearAll();"><label>10</label><br>
+	<input type="checkbox" value="11" name="select_zone[]" id="local" onclick="clearAll();"><label>11</label>
+	<input type="checkbox" value="12" name="select_zone[]" id="local" onclick="clearAll();"><label>12</label>
+	<input type="checkbox" value="13" name="select_zone[]" id="local" onclick="clearAll();"><label>13</label>
+	<input type="checkbox" value="14" name="select_zone[]" id="local" onclick="clearAll();"><label>14</label>
+	<input type="checkbox" value="15" name="select_zone[]" id="local" onclick="clearAll();"><label>15</label>
+	<input type="checkbox" value="16" name="select_zone[]" id="local" onclick="clearAll();"><label>16</label>
+	<input type="checkbox" value="17" name="select_zone[]" id="local" onclick="clearAll();"><label>17</label>
+	<input type="checkbox" value="18" name="select_zone[]" id="local" onclick="clearAll();"><label>18</label>
+	<input type="checkbox" value="19" name="select_zone[]" id="local" onclick="clearAll();"><label>19</label>
+	<input type="checkbox" value="20" name="select_zone[]" id="local" onclick="clearAll();"><label>20</label><br>
+	<input type="checkbox" value="21" name="select_zone[]" id="local" onclick="clearAll();"><label>21</label>
+	<input type="checkbox" value="22" name="select_zone[]" id="local" onclick="clearAll();"><label>22</label>
+	<input type="checkbox" value="23" name="select_zone[]" id="local" onclick="clearAll();"><label>23</label>
+	<input type="checkbox" value="24" name="select_zone[]" id="local" onclick="clearAll();"><label>24</label>
+	<input type="checkbox" value="25" name="select_zone[]" id="local" onclick="clearAll();"><label>25</label>
+	<input type="checkbox" value="26" name="select_zone[]" id="local" onclick="clearAll();"><label>26</label>
+	<input type="checkbox" value="27" name="select_zone[]" id="local" onclick="clearAll();"><label>27</label>
+	<input type="checkbox" value="28" name="select_zone[]" id="local" onclick="clearAll();"><label>28</label>
+	<input type="checkbox" value="29" name="select_zone[]" id="local" onclick="clearAll();"><label>29</label>
+	<input type="checkbox" value="30" name="select_zone[]" id="local" onclick="clearAll();"><label>30</label><br>
+	<input type="checkbox" value="31" name="select_zone[]" id="local" onclick="clearAll();"><label>31</label>
+	<input type="checkbox" value="32" name="select_zone[]" id="local" onclick="clearAll();"><label>32</label>
+	<input type="checkbox" value="33" name="select_zone[]" id="local" onclick="clearAll();"><label>33</label>
+	<input type="checkbox" value="34" name="select_zone[]" id="local" onclick="clearAll();"><label>34</label>
+	<input type="checkbox" value="35" name="select_zone[]" id="local" onclick="clearAll();"><label>35</label>
+	<input type="checkbox" value="36" name="select_zone[]" id="local" onclick="clearAll();"><label>36</label>
+	<input type="checkbox" value="37" name="select_zone[]" id="local" onclick="clearAll();"><label>37</label>
+	<input type="checkbox" value="38" name="select_zone[]" id="local" onclick="clearAll();"><label>38</label>
+	<input type="checkbox" value="39" name="select_zone[]" id="local" onclick="clearAll();"><label>39</label>
+	<input type="checkbox" value="40" name="select_zone[]" id="local" onclick="clearAll();"><label>40</label><br>
+	<input type="checkbox" value="41" name="select_zone[]" id="local" onclick="clearAll();"><label>41</label>
+	<input type="checkbox" value="42" name="select_zone[]" id="local" onclick="clearAll();"><label>42</label>
+	<input type="checkbox" value="43" name="select_zone[]" id="local" onclick="clearAll();"><label>43</label>
+	<input type="checkbox" value="44" name="select_zone[]" id="local" onclick="clearAll();"><label>44</label>
+	<input type="checkbox" value="45" name="select_zone[]" id="local" onclick="clearAll();"><label>45</label>
+	<input type="checkbox" value="46" name="select_zone[]" id="local" onclick="clearAll();"><label>46</label>
+	<input type="checkbox" value="47" name="select_zone[]" id="local" onclick="clearAll();"><label>47</label>
+	<input type="checkbox" value="48" name="select_zone[]" id="local" onclick="clearAll();"><label>48</label>
+	<input type="checkbox" value="49" name="select_zone[]" id="local" onclick="clearAll();"><label>49</label>
+	<input type="checkbox" value="50" name="select_zone[]" id="local" onclick="clearAll();"><label>50</label><br>
+	<input type="checkbox" value="51" name="select_zone[]" id="local" onclick="clearAll();"><label>51</label>
+	<input type="checkbox" value="52" name="select_zone[]" id="local" onclick="clearAll();"><label>52</label>
+	<input type="checkbox" value="53" name="select_zone[]" id="local" onclick="clearAll();"><label>53</label>
+	<input type="checkbox" value="54" name="select_zone[]" id="local" onclick="clearAll();"><label>54</label>
+	<input type="checkbox" value="55" name="select_zone[]" id="local" onclick="clearAll();"><label>55</label>
+	<input type="checkbox" value="56" name="select_zone[]" id="local" onclick="clearAll();"><label>56</label>
+	<input type="checkbox" value="57" name="select_zone[]" id="local" onclick="clearAll();"><label>57</label>
+	<input type="checkbox" value="58" name="select_zone[]" id="local" onclick="clearAll();"><label>58</label>
+	<input type="checkbox" value="60" name="select_zone[]" id="network_all" onclick="clearZone();"><label>ALL</label>
+	<input type="checkbox" id="network_gobal" onclick="clearLocal();" ><label>Golbal</label><br>
+	<input type="checkbox" id="downStream" onclick="clearNodirection();"><label>Down Stream</label>
+	<input type="checkbox" id="upStream" onclick="clearNodirection();"><label>Up Stream</label>	
+	<input type="checkbox" id="nodirection" onclick="clearDirection();"><label>No Direction</label>	
+	<input type="button" onclick="change();" value="submit">
+</form>
+	<div id="iframe" class="box">
+	</div>
+</body>
+</html>
